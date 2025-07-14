@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xime.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 L60 40 L90 40 L70 60 L80 90 L50 70 L20 90 L30 60 L10 40 L40 40 Z" fill="white" opacity="0.1"/></svg>');
+            background-size: 30px 30px;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .audio-player {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audio-player::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .audio-player h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .audio-player audio {
+            width: 100%;
+            height: 60px;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .audio-player audio::-webkit-media-controls-panel {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .song-info {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .music-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            height: 40px;
+            margin: 15px 0;
+            gap: 3px;
+        }
+
+        .bar {
+            width: 4px;
+            background: linear-gradient(to top, #ff6b6b, #ffd93d);
+            border-radius: 2px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .bar:nth-child(2) { height: 35px; animation-delay: 0.1s; }
+        .bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
+        .bar:nth-child(4) { height: 40px; animation-delay: 0.3s; }
+        .bar:nth-child(5) { height: 30px; animation-delay: 0.4s; }
+        .bar:nth-child(6) { height: 35px; animation-delay: 0.5s; }
+        .bar:nth-child(7) { height: 25px; animation-delay: 0.6s; }
+        .bar:nth-child(8) { height: 30px; animation-delay: 0.7s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+
+        .message {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .message p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hearts {
+            text-align: center;
+            font-size: 2em;
+            color: #ff6b6b;
+            margin: 20px 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .music-notes {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.7);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .message {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="music-notes">♥❤♥</div>
+            <h1></h1>
+            <p>Cuando el ciego vea las estrellas</p>
+            <p>y el sordo escuche mi canto</p>
+            <p>yo dejare de amarte.</p>
+        </div>
+
+        <div class="content">
+            <div class="audio-player">
+                <h3>corazon partio</h3>
+                <div class="song-info">
+                    <p></p>
+                </div>
+                <div class="music-visualizer">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <audio controls autoplay loop>
+                    <source src="Alejandro Sanz - Corazón partío.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <div class="message">
+                <h2></h2>
+                <p>
+                    eres la persona mas maravillosa que he conocido en mi vida.
+                    eres muy fuerte a pesar de todo lo que te a pasado
+                    eres linda, amorosa, tierna, chistosa, alegre y loca, eres lo unico que esta bien en este mundo, te amare hasta mi ultimo suspiro porque te merees el mundo entero y mucho mas
+                </p>
+                <br>
+                <p>
+                 te amare hasta que mi corazon deje de palpitar,
+                 te amare hasta que mis ojos dejen de ver,
+                 te amare hasta que mis oidos dejen de escuchar,
+                 te amare hasta que mi cerebo deje de reaccionar,
+                 esa es la unica forma de dejar de amarte.
+                </p>
+            </div>
+
+            <div class="hearts">
+                💕 💖 💕
+            </div>
+
+            <div class="message">
+                <h2></h2>
+                <p>
+                     despues de todo siemprre tendre buenas intenciones contigo,
+                     mi amor, mi corazon, mi alma.
+                     aunque la vida nos ponga a prueba,
+                     mi amor por ti siempre sera la verdad.
+                     en los momentos dificiles, 
+                     en las noches mas oscuras, mi corazon late solo por ti.
+                     en las horas de dudas,
+                     en las sombras de la incertidumbre, 
+                     mi amor por ti siempre sera la luz que me guia.
+                     despues de todo,
+                     siempre te amare,
+                     con todo mi corazon,
+                     con toda mi alma, 
+                     aunque el tiempo pase,
+                     aunque la vida cambie, 
+                     mi amor por ti siempre sera el mismo. 
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>me medio incomode con la platica de ayer..</p>
+        </div>
+    </div>
+</body>
+</html>
